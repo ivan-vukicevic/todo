@@ -1,6 +1,6 @@
 <template>
-  <q-page >
-<h5> Help </h5>
+  <q-page class="q-pa-lg" >
+<h5 class="q-mt-none"> Help </h5>
   </q-page>
 </template>
 

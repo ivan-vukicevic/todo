@@ -12,52 +12,49 @@
         />
       </q-toolbar>
       <div class="q-px-lg q-pt-xl q-mb-xl">
-        <div class="text-h3">Todo</div>
-        <div class="text-subtitle1">{{todaysDate}}</div>
+        <div class="text-h3">Lista obaveza</div>
+        <div class="text-subtitle1">{{ todaysDate }}</div>
       </div>
-      <q-img 
-      src="../statics/sunnyHome.jpg"
-      class="header-image absolute-top" />
+      <q-img src="../statics/sunnyHome.jpg" class="header-image absolute-top" />
     </q-header>
 
     <q-drawer
-        v-model="leftDrawerOpen"
-        show-if-above
+      v-model="leftDrawerOpen"
+      
+      show-if-above
+      :mini="miniState"
+      @mouseover="miniState = false"
+      @mouseout="miniState = true"
+      mini-to-overlay
+      :width="200"
+      :breakpoint="500"
+      bordered
+      content-class="bg-grey-3 bg-blue-10"
+    >
+      <q-scroll-area class="fit ">
+        <q-list padding>
+          <q-item clickable v-ripple to="/">
+            <q-item-section avatar>
+              <q-icon name="list" />
+            </q-item-section>
 
-        :mini="miniState"
-        @mouseover="miniState = false"
-        @mouseout="miniState = true"
-        mini-to-overlay
+            <q-item-section >
+              Lista obaveza
+            </q-item-section>
+          </q-item>
 
-        :width="200"
-        :breakpoint="500"
-        bordered
-        content-class="bg-grey-3"
-      >
-        <q-scroll-area class="fit">
-          <q-list padding>
-            <q-item clickable v-ripple>
-              <q-item-section avatar>
-                <q-icon name="list" />
-              </q-item-section>
+          <q-item active clickable v-ripple to="/help">
+            <q-item-section avatar>
+              <q-icon name="help" />
+            </q-item-section>
 
-              <q-item-section>
-                Todo
-              </q-item-section>
-            </q-item>
-
-            <q-item active clickable v-ripple>
-              <q-item-section avatar>
-                <q-icon name="help" />
-              </q-item-section>
-
-              <q-item-section>
-                Help
-              </q-item-section>
-            </q-item>
-          </q-list>
-        </q-scroll-area>
-      </q-drawer>
+            <q-item-section>
+              Opis
+            </q-item-section>
+          </q-item>
+        </q-list>
+      </q-scroll-area>
+    </q-drawer>
 
     <q-page-container>
       <router-view />
@@ -67,7 +64,7 @@
 
 <script>
 import EssentialLink from "components/EssentialLink.vue";
-import { date } from 'quasar'
+import { date } from "quasar";
 
 const linksData = [
   {
@@ -127,8 +124,36 @@ export default {
 
   computed: {
     todaysDate() {
-      let timeStamp = Date.now()
-      return date.formatDate(timeStamp, 'dddd D MMM');
+      let timeStamp = Date.now();
+      let day = null;
+      if (date.formatDate(timeStamp, "d") == 1) {
+        day = "Ponedeljak ";
+        return day + date.formatDate(timeStamp, "D MMM");
+      }
+      if (date.formatDate(timeStamp, "d") == 2) {
+        day = "Utorak ";
+        return day + date.formatDate(timeStamp, "D MMM");
+      }
+      if (date.formatDate(timeStamp, "d") == 3) {
+        day = "Srijeda ";
+        return day + date.formatDate(timeStamp, "D MMM");
+      }
+      if (date.formatDate(timeStamp, "d") == 4) {
+        day = "Četvrtak ";
+        return day + date.formatDate(timeStamp, "D MMM");
+      }
+      if (date.formatDate(timeStamp, "d") == 5) {
+        day = "Petak ";
+        return day + date.formatDate(timeStamp, "D MMM");
+      }
+      if (date.formatDate(timeStamp, "d") == 6) {
+        day = "Subota ";
+        return day + date.formatDate(timeStamp, "D MMM");
+      }
+      if (date.formatDate(timeStamp, "d") == 7) {
+        day = "Nedelja ";
+        return day + date.formatDate(timeStamp, "D MMM");
+      }
     }
   }
 };
